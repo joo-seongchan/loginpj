@@ -17,19 +17,19 @@ const Wrap = styled.div`
   flex-direction: column;
   padding: 100px 150px;
   border-radius: 25px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(5px);
 `;
 const Title = styled.div`
   font-size: 120px;
-  color: #333;
+  color: white;
   font-weight: 900;
   margin-bottom: 150px;
 `;
 const Button = styled.div`
   width: 300px;
   height: 120px;
-  background-color: green;
+  background-color: #3f9eff;
   border-radius: 25px;
   a {
     width: 100%;
