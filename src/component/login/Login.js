@@ -1,13 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faLock,
-  faLockOpen,
-  faUser,
-  faMobileScreen,
-} from "@fortawesome/free-solid-svg-icons";
+import { LoginModule } from "./LoginModule";
+import { SignUpModule } from "./SignUpModule";
 
 const Section = styled.div`
   width: 100vw;
@@ -26,7 +20,6 @@ const BgCover = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.1);
-  /* backdrop-filter: blur(5px); */
 `;
 const Wrap = styled.div`
   width: 1200px;
@@ -130,75 +123,6 @@ const Llogin = styled.div`
     width: 100%;
   }
 `;
-const Mtitle = styled.div`
-  width: 100%;
-  font-size: 42px;
-  margin-bottom: 60px;
-  font-weight: 700;
-  color: #3f9eff;
-`;
-const UserNameWrap = styled.div`
-  width: 100%;
-  margin-bottom: 30px;
-  height: 100px;
-`;
-const InPutWrap = styled.div`
-  display: flex;
-  border-bottom: 2px solid #33333380;
-  margin-bottom: 20px;
-  input {
-    all: unset;
-    box-sizing: border-box;
-    width: 90%;
-    padding: 20px 0;
-    font-size: 20px;
-    &::placeholder {
-      font-size: 22px;
-      color: #33333350;
-    }
-  }
-`;
-
-const IconWrap = styled.div`
-  width: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-`;
-const Errors = styled.div`
-  width: 100%;
-  font-size: 16px;
-  color: #33333380;
-  font-weight: 400;
-`;
-
-const PasswordWrap = styled.div`
-  width: 100%;
-  margin-bottom: 30px;
-  height: 100px;
-`;
-const MButtonWrap = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const Forgot = styled.div`
-  color: #33333380;
-  cursor: pointer;
-`;
-const Mbutton = styled.button`
-  all: unset;
-  padding: 15px 40px;
-  background-color: #3f9eff;
-  font-size: 22px;
-  color: white;
-  border-radius: 15px;
-  cursor: pointer;
-`;
-
 const Rsignup = styled.div`
   width: 100%;
   height: 100%;
@@ -212,50 +136,16 @@ const Rsignup = styled.div`
   }
 `;
 
-const InPutWrap2 = styled.div`
-  display: flex;
-  border-bottom: 2px solid #33333380;
-  margin-bottom: 20px;
-  justify-content: space-between;
-  input {
-    all: unset;
-    box-sizing: border-box;
-    width: 80%;
-    padding: 20px 0;
-    font-size: 20px;
-    &::placeholder {
-      font-size: 22px;
-      color: #33333350;
-    }
-  }
+const PopupWrap = styled.div`
+  padding: 15px 80px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 25px;
+  background-color: #3f9eff;
 `;
-
-const NamePhoneWrap = styled.div`
-  width: 100%;
-  margin-bottom: 30px;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-`;
-const NameWrap = styled.div`
-  width: 45%;
-`;
-const PhoneWrap = styled.div`
-  width: 45%;
-`;
-const PwWrap = styled.div`
-  width: 100%;
-  margin-bottom: 30px;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Passwordcheck1 = styled.div`
-  width: 45%;
-`;
-const Passwordcheck2 = styled.div`
-  width: 45%;
+const PopUpTitle = styled.div`
+  color: white;
 `;
 
 export const Login = () => {
@@ -264,7 +154,6 @@ export const Login = () => {
   const [conw1, setConw1] = useState("55%");
   const [conw2, setConw2] = useState("40%");
   const [place, setPlace] = useState("left");
-  const [pwType, setPwType] = useState("password");
 
   return (
     <Section>
@@ -275,53 +164,7 @@ export const Login = () => {
               <Llogin
                 style={{ display: `${conw1 === "55%" ? "flex" : "none"}` }}
               >
-                <Mtitle>Login</Mtitle>
-                <form>
-                  <UserNameWrap>
-                    <InPutWrap>
-                      <input type="text" placeholder="E-mail"></input>
-                      <IconWrap>
-                        <FontAwesomeIcon icon={faEnvelope} />
-                      </IconWrap>
-                    </InPutWrap>
-                    <Errors>오류메세지</Errors>
-                  </UserNameWrap>
-                  <PasswordWrap>
-                    <InPutWrap>
-                      <input type={pwType} placeholder="Password"></input>
-                      <IconWrap
-                        onClick={() => {
-                          pwType === "password"
-                            ? setPwType("text")
-                            : setPwType("password");
-                        }}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <FontAwesomeIcon
-                          style={{
-                            display: `${
-                              pwType === "password" ? "block" : "none"
-                            }`,
-                          }}
-                          icon={faLock}
-                        />
-                        <FontAwesomeIcon
-                          style={{
-                            display: `${
-                              pwType !== "password" ? "block" : "none"
-                            }`,
-                          }}
-                          icon={faLockOpen}
-                        />
-                      </IconWrap>
-                    </InPutWrap>
-                    <Errors>오류메세지</Errors>
-                  </PasswordWrap>
-                  <MButtonWrap>
-                    <Forgot>비밀번호가 기억나지 않으신가요?</Forgot>
-                    <Mbutton>로그인</Mbutton>
-                  </MButtonWrap>
-                </form>
+                <LoginModule />
               </Llogin>
               <Lsignup
                 style={{ display: `${place === "left" ? "none" : "flex"}` }}
@@ -372,90 +215,16 @@ export const Login = () => {
               <Rsignup
                 style={{ display: `${conw1 === "40%" ? "flex" : "none"}` }}
               >
-                <Mtitle>회원가입</Mtitle>
-                <form>
-                  <NamePhoneWrap>
-                    <NameWrap>
-                      <InPutWrap2>
-                        <input type="text" placeholder="이름"></input>
-                        <IconWrap style={{ width: "20%" }}>
-                          <FontAwesomeIcon icon={faUser} />
-                        </IconWrap>
-                      </InPutWrap2>
-                      <Errors>오류메세지</Errors>
-                    </NameWrap>
-                    <PhoneWrap>
-                      <InPutWrap2>
-                        <input type="text" placeholder="전화번호"></input>
-                        <IconWrap style={{ width: "20%" }}>
-                          <FontAwesomeIcon icon={faMobileScreen} />
-                        </IconWrap>
-                      </InPutWrap2>
-                      <Errors>오류메세지</Errors>
-                    </PhoneWrap>
-                  </NamePhoneWrap>
-                  <UserNameWrap>
-                    <InPutWrap>
-                      <input type="text" placeholder="E-mail"></input>
-                      <IconWrap>
-                        <FontAwesomeIcon icon={faEnvelope} />
-                      </IconWrap>
-                    </InPutWrap>
-                    <Errors>오류메세지</Errors>
-                  </UserNameWrap>
-
-                  <PwWrap>
-                    <Passwordcheck1>
-                      <InPutWrap2>
-                        <input type={pwType} placeholder="Password"></input>
-                        <IconWrap
-                          style={{ cursor: "pointer", width: "30%" }}
-                        ></IconWrap>
-                      </InPutWrap2>
-                      <Errors>오류메세지</Errors>
-                    </Passwordcheck1>
-                    <Passwordcheck2>
-                      <InPutWrap2>
-                        <input type={pwType} placeholder="Password"></input>
-                        <IconWrap
-                          onClick={() => {
-                            pwType === "password"
-                              ? setPwType("text")
-                              : setPwType("password");
-                          }}
-                          style={{ cursor: "pointer", width: "30%" }}
-                        >
-                          <FontAwesomeIcon
-                            style={{
-                              display: `${
-                                pwType === "password" ? "block" : "none"
-                              }`,
-                            }}
-                            icon={faLock}
-                          />
-                          <FontAwesomeIcon
-                            style={{
-                              display: `${
-                                pwType !== "password" ? "block" : "none"
-                              }`,
-                            }}
-                            icon={faLockOpen}
-                          />
-                        </IconWrap>
-                      </InPutWrap2>
-                      <Errors>오류메세지</Errors>
-                    </Passwordcheck2>
-                  </PwWrap>
-                  <MButtonWrap style={{ justifyContent: "right" }}>
-                    <Mbutton>회원 가입</Mbutton>
-                  </MButtonWrap>
-                </form>
+                <SignUpModule />
               </Rsignup>
             </RightCon>
             <MoveBox a={position1}></MoveBox>
           </ConWrap>
         </Wrap>
       </BgCover>
+      <PopupWrap>
+        <PopUpTitle>회원가입 완료! J Site 가입을 환영합니다.</PopUpTitle>
+      </PopupWrap>
     </Section>
   );
 };
