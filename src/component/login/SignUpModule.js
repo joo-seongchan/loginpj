@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Mtitle = styled.div`
@@ -123,6 +123,8 @@ const Passwordcheck2 = styled.div`
 export const SignUpModule = () => {
   const [pwType, setPwType] = useState("password");
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -136,13 +138,14 @@ export const SignUpModule = () => {
 
   const ssubmit = () => {
     const { spassword, spwcheck } = getValues();
+
     if (spassword !== spwcheck) {
       setError("spwcheckResult", {
         message: "비밀번호가 일치하지 않습니다.",
       });
     }
     if (spassword === spwcheck) {
-      navigate("/");
+      navigate("/login", { state: { message: "ture" } });
     }
   };
   return (

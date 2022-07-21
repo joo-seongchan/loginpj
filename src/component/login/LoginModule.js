@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const userDb = {
   idDb: "test@test.test",
@@ -92,6 +92,7 @@ export const LoginModule = () => {
   const [pwType, setPwType] = useState("password");
   const { idDb, passwordDb } = userDb;
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
