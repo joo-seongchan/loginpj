@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Section = styled.div`
@@ -43,12 +43,21 @@ const Button = styled.div`
 `;
 
 export const Home = () => {
+  const location = useLocation();
+  console.log(location);
+
   return (
     <Section>
-      <Wrap>
+      <Wrap style={{ display: `${location?.state ? "none" : "flex"}` }}>
         <Title>로그인 PJ</Title>
         <Button>
           <Link to="/login">로그인</Link>
+        </Button>
+      </Wrap>
+      <Wrap style={{ display: `${location?.state ? "flex" : "none  "}` }}>
+        <Title>감사합니다.</Title>
+        <Button>
+          <Link to="#">새로고침</Link>
         </Button>
       </Wrap>
     </Section>

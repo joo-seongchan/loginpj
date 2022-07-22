@@ -12,6 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 
+export let userDb = [];
+
 const Section = styled.div`
   width: 100vw;
   height: 100vh;
@@ -307,14 +309,27 @@ export const Login = () => {
   };
 
   const ssubmit = () => {
-    const { spassword, spwcheck } = getValues();
-
+    const { sname, sphone, susername, spassword, spwcheck } = getValues();
+    const correctUserDb = userDb.filter((a) => a.eMail === susername);
+    const userobj = {
+      id: Date.now(),
+      eMail: susername,
+      phoneNum: sphone,
+      realName: sname,
+      password: spassword,
+    };
+    if (correctUserDb.length >= 1) {
+      setError("susernameResult", {
+        message: "이미 가입된 E-mail 입니다.",
+      });
+    }
     if (spassword !== spwcheck) {
       setError("spwcheckResult", {
         message: "비밀번호가 일치하지 않습니다.",
       });
     }
-    if (spassword === spwcheck) {
+    if (spassword === spwcheck && correctUserDb.length < 1) {
+      userDb.push(userobj);
       handleClick();
       setPopup("0");
       setTimeout(() => {
@@ -325,7 +340,6 @@ export const Login = () => {
 
   return (
     <Section>
-      {/* {location.state.message === "ture" ? `${location.state.message}` : ""} */}
       <BgCover>
         <Wrap>
           <ConWrap a={padding1}>
@@ -435,6 +449,9 @@ export const Login = () => {
                               /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
                             message: "메일형식이 아닙니다.",
                           },
+                          onChange() {
+                            clearErrors("susernameResult");
+                          },
                         })}
                         type="text"
                         placeholder="E-mail"
@@ -445,6 +462,9 @@ export const Login = () => {
                     </InPutWrap>
                     {errors?.susername?.message && (
                       <Errors>{errors?.susername?.message}</Errors>
+                    )}
+                    {errors?.susernameResult?.message && (
+                      <Errors>{errors?.susernameResult?.message}</Errors>
                     )}
                   </UserNameWrap>
 

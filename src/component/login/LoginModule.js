@@ -8,11 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const userDb = {
-  idDb: "test@test.test",
-  passwordDb: "123123123",
-};
+import { userDb } from "./Login";
 
 const Mtitle = styled.div`
   width: 100%;
@@ -92,7 +88,6 @@ export const LoginModule = () => {
   const [pwType, setPwType] = useState("password");
   const { idDb, passwordDb } = userDb;
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -106,14 +101,17 @@ export const LoginModule = () => {
 
   const submit = () => {
     const { username, password } = getValues();
-    if (username !== idDb) {
-      setError("nameResult", { message: "아이디를 확인해주세요." });
-    }
-    if (password !== passwordDb) {
-      setError("passwordResult", { message: "비밀번호를 확인해주세요" });
-    }
-    if (username === idDb && password === passwordDb) {
-      navigate("/");
+    const correctUserDb = userDb.filter((a) => a.eMail === username);
+    if (correctUserDb.length < 1) {
+      setError("nameResult", { message: "가입되지 않은 E-mail입니다." });
+    } else {
+      const { password: cpassword } = correctUserDb[0];
+
+      if (password !== cpassword) {
+        setError("passwordResult", { message: "비밀번호를 확인해주세요" });
+      } else {
+        navigate("/", { state: correctUserDb });
+      }
     }
   };
   return (
